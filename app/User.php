@@ -28,7 +28,7 @@ class User extends Authenticatable
     ];
 
     public function tasks(){
-        return $this->hasMany('App\Task');
+        return $this->belongsToMany('App\Task');
     }
 
     public function comments(){
@@ -41,5 +41,9 @@ class User extends Authenticatable
 
     public function companies(){
         return $this->hasMany('App\Company');
+    }
+
+    public function prtojects(){
+        return $this->belongsToMany('App\Projects');
     }
 }

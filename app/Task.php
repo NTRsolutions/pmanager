@@ -14,6 +14,10 @@ class Task extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function users(){
+        return $this->belongsToMany('App\User');
+    }
+
     public function company(){
         return $this->belongsTo('App\Company');
     }
