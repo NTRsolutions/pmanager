@@ -48,7 +48,8 @@ class CompaniesController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        $company = Company::find($company->id);
+        return view('companies.show', ['company'=>$company]);
     }
 
     /**
@@ -59,7 +60,8 @@ class CompaniesController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        $company = Company::find($company->id);
+        return view('companies.edit', ['company'=>$company]);
     }
 
     /**
@@ -71,7 +73,17 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        // Save data
+        $data = Company::where('id', $company->id)->update([
+            'name'        => $request->input('name'),
+            'description' => $request->input('description')
+        ]);
+
+        // Redirect
+        if ($data) {
+            return redirect()->route('companies.show', ['company' => $company->id])->with('success', 'Company Updated Successfully');
+        }
+        return back()->withInput();
     }
 
     /**
@@ -83,5 +95,14 @@ class CompaniesController extends Controller
     public function destroy(Company $company)
     {
         //
+    }
+
+    /**
+     * urtasinda
+     */
+    public function test()
+    {
+
+        return response()->json($_SERVER);
     }
 }
