@@ -94,15 +94,11 @@ class CompaniesController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
-    }
+        $company_id = Company::find($company->id);
+        if($company_id->delete()){
+            return redirect()->route('companies.index')->with('success', 'Company deleted successfully');
+        }
 
-    /**
-     * urtasinda
-     */
-    public function test()
-    {
-
-        return response()->json($_SERVER);
+        return back()->withInput()->with('error', 'Company could not be deleted');
     }
 }
